@@ -769,7 +769,19 @@
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0E-9n-EfT">
                                                         <rect key="frame" x="0.0" y="193" width="280" height="95"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crw-DH-Tmr">
+                                                                <rect key="frame" x="89" y="37" width="103" height="21"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
                                                         <color key="backgroundColor" red="0.96680689099999995" green="0.62475028779999997" blue="0.0090562826789999992" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="crw-DH-Tmr" firstAttribute="centerX" secondItem="Z0E-9n-EfT" secondAttribute="centerX" id="JbO-cJ-4Py"/>
+                                                            <constraint firstItem="crw-DH-Tmr" firstAttribute="centerY" secondItem="Z0E-9n-EfT" secondAttribute="centerY" id="Z54-CE-Km3"/>
+                                                        </constraints>
                                                         <variation key="heightClass=compact" ambiguous="YES" misplaced="YES">
                                                             <rect key="frame" x="280" y="0.0" width="0.0" height="152"/>
                                                         </variation>
@@ -842,9 +854,17 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addPhotoView" destination="YZ6-Cn-apY" id="F8M-FM-TzT"/>
+                        <outlet property="clipLengthLabel" destination="nr4-Cj-dvJ" id="nG8-vY-i1G"/>
+                        <outlet property="fpsLabel" destination="GXL-p7-8M9" id="oGc-pW-gcY"/>
                         <outlet property="getLocationButton" destination="Q6d-Yb-pKv" id="Jdp-WP-TnL"/>
                         <outlet property="mainInfoView" destination="zW4-kh-VmC" id="udD-MI-Byy"/>
                         <outlet property="mapViewContainer" destination="Z0E-9n-EfT" id="XK8-eU-B36"/>
+                        <outlet property="memoryUsageLabel" destination="76Q-sj-WBo" id="efZ-Jb-kja"/>
+                        <outlet property="messageLabelOnMap" destination="crw-DH-Tmr" id="vn9-oj-7WF"/>
+                        <outlet property="numberOfPhotosLabel" destination="3lP-aT-sVX" id="uEl-9B-FLM"/>
+                        <outlet property="savingName" destination="GFA-ac-hrB" id="6Qt-gB-y1y"/>
+                        <outlet property="shootingDurationLabel" destination="4JM-Jx-po6" id="md9-7D-rcd"/>
+                        <outlet property="shootingIntervalLabel" destination="DzZ-HD-Zl8" id="3wV-82-bzD"/>
                         <outletCollection property="mainSubViews" destination="9Ke-ys-P8G" collectionClass="NSMutableArray" id="QJQ-bn-KP1"/>
                         <outletCollection property="mainSubViews" destination="R1W-SO-xVd" collectionClass="NSMutableArray" id="lCl-Zn-mNP"/>
                         <outletCollection property="mainSubViews" destination="FQ6-Ts-ddz" collectionClass="NSMutableArray" id="A4y-5a-Azx"/>
