@@ -9,6 +9,14 @@
 import UIKit
 import CoreLocation
 
+
+private let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .short
+    return formatter
+}()
+
 class SavingViewController: UIViewController {
     
     // MARK: - Main views
@@ -33,24 +41,34 @@ class SavingViewController: UIViewController {
     var location : CLLocation?
     var updatingLocation = false
     var lastLocationError : NSError?
-    var timer : NSTimer?
+    var timer : Timer?
+    var calc : TimeLapseCalc?
+    var date = Date()
+    var name = ""
     
     
     // MARK: - IBActions
-    @IBAction func cancel(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancel(_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func getLocation(sender: UIButton) {
+    @IBAction func save(_ sender: UIBarButtonItem) {
+        //dismissViewControllerAnimated(true, completion: nil)
+        date = Date()
+        let hudView = HudView.hudInView(navigationController!.view, animated: true)
+        hudView.text = "Saved"
+    }
+    
+    @IBAction func getLocation(_ sender: UIButton) {
         // check the current authorization status
         let authStatus = CLLocationManager.authorizationStatus()
-        if authStatus == CLAuthorizationStatus.NotDetermined {
+        if authStatus == CLAuthorizationStatus.notDetermined {
             locationManager.requestWhenInUseAuthorization() // allows to get location updates while it is open and the user is interacting with it.
             return
         }
         
         // shows the alert if the authorization status is denied or restricted
-        if authStatus == CLAuthorizationStatus.Denied || authStatus == CLAuthorizationStatus.Restricted {
+        if authStatus == CLAuthorizationStatus.denied || authStatus == CLAuthorizationStatus.restricted {
             showLocationServicesDeniedAllert()
             return
         }
@@ -58,18 +76,8 @@ class SavingViewController: UIViewController {
         startLocationManager()
         updateMap()
         hideGetLocationButtonAndShowMap()
-        
     }
     
-    @IBAction func save(sender: UIBarButtonItem) {
-        UIView.animateWithDuration(0.5) {
-            () -> Void in
-            self.mapViewContainer.hidden = !self.mapViewContainer.hidden
-            self.mapViewContainer.alpha = self.mapViewContainer.alpha == 1 ? 0 : 1
-            self.getLocationButton.hidden = !self.getLocationButton.hidden
-            self.getLocationButton.alpha = self.getLocationButton.alpha == 1 ? 0 : 1
-        }
-    }
     
     
     // MARK: - ViewController methods
@@ -79,18 +87,18 @@ class SavingViewController: UIViewController {
         mainInfoView.layer.cornerRadius = 8.0
         mainInfoView.clipsToBounds = true
         mainInfoView.layer.borderWidth = 1.0
-        mainInfoView.layer.borderColor = UIColor.whiteColor().CGColor
+        mainInfoView.layer.borderColor = UIColor.white.cgColor
         
         addPhotoView.layer.cornerRadius = 8.0
         addPhotoView.layer.borderWidth = 1.0
-        addPhotoView.layer.borderColor = UIColor.whiteColor().CGColor
+        addPhotoView.layer.borderColor = UIColor.white.cgColor
         addPhotoView.clipsToBounds = true
         
         mapViewContainer.layer.cornerRadius = 8.0
         mapViewContainer.layer.borderWidth = 1.0
-        mapViewContainer.layer.borderColor = UIColor.whiteColor().CGColor
+        mapViewContainer.layer.borderColor = UIColor.white.cgColor
         mapViewContainer.clipsToBounds = true
-        mapViewContainer.hidden = true
+        mapViewContainer.isHidden = true
         mapViewContainer.alpha = 0
         
         getLocationButton.layer.cornerRadius = 8.0
@@ -98,8 +106,10 @@ class SavingViewController: UIViewController {
         
         for mainSubView in mainSubViews {
             mainSubView.layer.borderWidth = 0.5
-            mainSubView.layer.borderColor = UIColor.whiteColor().CGColor
+            mainSubView.layer.borderColor = UIColor.white.cgColor
         }
+        
+        updateLabels()
     }
     
     override func didReceiveMemoryWarning() {
@@ -109,23 +119,34 @@ class SavingViewController: UIViewController {
     
     // MARK: - Custom methods
     func showLocationServicesDeniedAllert() {
-        let allert = UIAlertController(title: "Location Services Disabled", message: "Please enable location services for this app in Settings.", preferredStyle: .Alert)
-        let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        let allert = UIAlertController(title: "Location Services Disabled", message: "Please enable location services for this app in Settings.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         allert.addAction(action)
-        presentViewController(allert, animated: true, completion: nil)
+        present(allert, animated: true, completion: nil)
     }
     
-    func showLocationErrorAlertWhithMessage(message : String, andTitle title : String) {
-        let allert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        let action = UIAlertAction(title: "OK", style: .Default) { (action) -> Void in
+    func showLocationErrorAlertWhithMessage(_ message : String, andTitle title : String) {
+        let allert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
             self.hideGetLocationButtonAndShowMap()
         }
         allert.addAction(action)
-        presentViewController(allert, animated: true, completion: nil)
+        present(allert, animated: true, completion: nil)
     }
     
     func updateLabels() {
-        
+        if let calc = calc {
+            numberOfPhotosLabel.text = String(calc.numberOfPhotos)
+            clipLengthLabel.text = String(format: "%02d", calc.clipLength.hours) + ":" + String(format: "%02d", calc.clipLength.minutes) + ":" + String(format: "%02d", calc.clipLength.seconds)
+            fpsLabel.text = "\(calc.framesPerSecond)"
+            shootingIntervalLabel.text = "\(calc.shootingInterval)"
+            shootingDurationLabel.text = String(format: "%02d", calc.totalShootingDuration.hours) + ":" + String(format: "%02d", calc.totalShootingDuration.minutes) + ":" + String(format: "%02d", calc.totalShootingDuration.seconds)
+            if calc.totalMemoryUsage < 1000 {
+                memoryUsageLabel.text = String(calc.totalMemoryUsage) + " Mb"
+            } else {
+                memoryUsageLabel.text = String(Double(calc.totalMemoryUsage) / 1000.0) + " Gb"
+            }
+        }
     }
     
     func updateMap() {
@@ -138,7 +159,7 @@ class SavingViewController: UIViewController {
             
             let statusMessage : String
             if let error = lastLocationError {
-                if error.domain == kCLErrorDomain && error.code == CLError.Denied.rawValue {
+                if error.domain == kCLErrorDomain && error.code == CLError.Code.denied.rawValue {
                     statusMessage = "Location Services Disabled"
                     showLocationErrorAlertWhithMessage("Please enable location services in options.", andTitle: statusMessage)
                 } else {
@@ -166,7 +187,7 @@ class SavingViewController: UIViewController {
             updatingLocation = true
             lastLocationError = nil
             
-            timer = NSTimer.scheduledTimerWithTimeInterval(60, target: self, selector: #selector(self.didTimeOut), userInfo: nil, repeats: false)
+            timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.didTimeOut), userInfo: nil, repeats: false)
         }
     }
     
@@ -191,13 +212,13 @@ class SavingViewController: UIViewController {
     }
     
     func hideGetLocationButtonAndShowMap() {
-        UIView.animateWithDuration(0.7) {
+        UIView.animate(withDuration: 0.7, animations: {
             () -> Void in
-            self.mapViewContainer.hidden = !self.mapViewContainer.hidden
+            self.mapViewContainer.isHidden = !self.mapViewContainer.isHidden
             self.mapViewContainer.alpha = self.mapViewContainer.alpha == 1 ? 0 : 1
-            self.getLocationButton.hidden = !self.getLocationButton.hidden
+            self.getLocationButton.isHidden = !self.getLocationButton.isHidden
             self.getLocationButton.alpha = self.getLocationButton.alpha == 1 ? 0 : 1
-        }
+        }) 
         
     }
     
@@ -207,18 +228,18 @@ class SavingViewController: UIViewController {
 
 extension SavingViewController: CLLocationManagerDelegate {
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError \(error)")
-        if error.code == CLError.LocationUnknown.rawValue {
+        if error._code == CLError.Code.locationUnknown.rawValue {
             // The location is currently unknown, but Core Location will keep trying.
             return
         }
-        lastLocationError = error
+        lastLocationError = error as NSError?
         stopLocationManager()
         updateMap()
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
         print("didUpdateLocations \(newLocation)")
         
@@ -248,7 +269,15 @@ extension SavingViewController: CLLocationManagerDelegate {
 }
 
 
+// MARK: - CLLocationManagerDelegate
 
+extension SavingViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        name = textField.text!
+        textField.resignFirstResponder()
+        return true
+    }
+}
 
 
 

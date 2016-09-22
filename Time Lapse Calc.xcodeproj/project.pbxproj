@@ -16,6 +16,7 @@
 		279A74401D48F81D00977326 /* SavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279A743F1D48F81D00977326 /* SavingViewController.swift */; };
 		279A74421D49125000977326 /* CalcTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279A74411D49125000977326 /* CalcTableViewCell.swift */; };
 		279A74441D4A12FA00977326 /* timelapseEx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 279A74431D4A12FA00977326 /* timelapseEx.jpg */; };
+		27E9FD6F1D63951300EF041A /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E9FD6E1D63951300EF041A /* HudView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		279A743F1D48F81D00977326 /* SavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingViewController.swift; sourceTree = "<group>"; };
 		279A74411D49125000977326 /* CalcTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcTableViewCell.swift; sourceTree = "<group>"; };
 		279A74431D4A12FA00977326 /* timelapseEx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = timelapseEx.jpg; sourceTree = "<group>"; };
+		27E9FD6E1D63951300EF041A /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,11 +64,9 @@
 		274489E51D410B4B002106E3 /* Time Lapse Calc */ = {
 			isa = PBXGroup;
 			children = (
-				274489E61D410B4B002106E3 /* AppDelegate.swift */,
-				274489F81D41265F002106E3 /* TimeLapseCalc.swift */,
-				274489FE1D414EB9002106E3 /* CalculatorViewController.swift */,
-				279A743F1D48F81D00977326 /* SavingViewController.swift */,
-				279A74411D49125000977326 /* CalcTableViewCell.swift */,
+				27FDC4261D94078900104CFE /* Model */,
+				27FDC4271D9407B000104CFE /* Controller */,
+				27FDC4281D9407BF00104CFE /* View */,
 				274489EA1D410B4B002106E3 /* Main.storyboard */,
 				274489ED1D410B4B002106E3 /* Assets.xcassets */,
 				274489EF1D410B4B002106E3 /* LaunchScreen.storyboard */,
@@ -74,6 +74,33 @@
 				279A74431D4A12FA00977326 /* timelapseEx.jpg */,
 			);
 			path = "Time Lapse Calc";
+			sourceTree = "<group>";
+		};
+		27FDC4261D94078900104CFE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				274489F81D41265F002106E3 /* TimeLapseCalc.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		27FDC4271D9407B000104CFE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				274489E61D410B4B002106E3 /* AppDelegate.swift */,
+				274489FE1D414EB9002106E3 /* CalculatorViewController.swift */,
+				279A743F1D48F81D00977326 /* SavingViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		27FDC4281D9407BF00104CFE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				279A74411D49125000977326 /* CalcTableViewCell.swift */,
+				27E9FD6E1D63951300EF041A /* HudView.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -103,12 +130,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Sasha Lexor";
 				TargetAttributes = {
 					274489E21D410B4B002106E3 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = 5T76Y9CX44;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -151,6 +179,7 @@
 			files = (
 				279A74401D48F81D00977326 /* SavingViewController.swift in Sources */,
 				274489F91D41265F002106E3 /* TimeLapseCalc.swift in Sources */,
+				27E9FD6F1D63951300EF041A /* HudView.swift in Sources */,
 				274489FF1D414EB9002106E3 /* CalculatorViewController.swift in Sources */,
 				279A74421D49125000977326 /* CalcTableViewCell.swift in Sources */,
 				274489E71D410B4B002106E3 /* AppDelegate.swift in Sources */,
@@ -193,8 +222,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -239,8 +270,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -259,6 +292,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -273,6 +307,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Lexor.Time-Lapse-Calc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -286,6 +321,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Lexor.Time-Lapse-Calc";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

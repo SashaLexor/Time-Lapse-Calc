@@ -379,7 +379,7 @@
                                                     <color key="titleColor" red="0.99591559171676636" green="0.9961506724357605" blue="0.99182039499282837" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="4Bl-Vd-O3T" kind="show" id="UOx-tE-OhR"/>
+                                                    <segue destination="4Bl-Vd-O3T" kind="show" identifier="saveCalculations" id="UOx-tE-OhR"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -479,22 +479,22 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ke-ys-P8G">
                                                                         <rect key="frame" x="0.0" y="0.0" width="280" height="26"/>
                                                                         <subviews>
-                                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VrH-2e-X0F">
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VrH-2e-X0F">
                                                                                 <rect key="frame" x="20" y="4" width="240" height="18"/>
                                                                                 <subviews>
                                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnl-zA-WeD">
-                                                                                        <rect key="frame" x="0.0" y="0.0" width="37" height="18"/>
+                                                                                        <rect key="frame" x="0.0" y="1" width="37" height="16"/>
                                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="13"/>
                                                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                                         <nil key="highlightedColor"/>
                                                                                     </label>
-                                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="GFA-ac-hrB">
+                                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="GFA-ac-hrB">
                                                                                         <rect key="frame" x="45" y="0.0" width="195" height="18"/>
-                                                                                        <constraints>
-                                                                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="30" id="gQv-ep-TTc"/>
-                                                                                        </constraints>
-                                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                                        <textInputTraits key="textInputTraits"/>
+                                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                                                        <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="done"/>
+                                                                                        <connections>
+                                                                                            <outlet property="delegate" destination="kRx-32-AG8" id="GnZ-IL-Pnq"/>
+                                                                                        </connections>
                                                                                     </textField>
                                                                                 </subviews>
                                                                             </stackView>

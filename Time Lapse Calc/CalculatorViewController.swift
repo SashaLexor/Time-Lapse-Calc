@@ -7,6 +7,27 @@
 //
 
 import UIKit
+/* ???????
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+*/
 
 class CalculatorViewController: UIViewController {
     
@@ -32,11 +53,11 @@ class CalculatorViewController: UIViewController {
         mainCalcView.layer.cornerRadius = 8.0
         mainCalcView.clipsToBounds = true
         mainCalcView.layer.borderWidth = 1
-        mainCalcView.layer.borderColor = UIColor.whiteColor().CGColor
+        mainCalcView.layer.borderColor = UIColor.white.cgColor
         
         for smallView in smallViews {
             smallView.layer.borderWidth = 0.5
-            smallView.layer.borderColor = UIColor.whiteColor().CGColor
+            smallView.layer.borderColor = UIColor.white.cgColor
         }
         
         shareButton.layer.cornerRadius = 8.0
@@ -58,9 +79,9 @@ class CalculatorViewController: UIViewController {
         
         
         // Do any additional setup after loading the view.
-        numberToolbar.barStyle = UIBarStyle.BlackTranslucent
-        numberToolbar.items=[UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil),
-                             UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(CalculatorViewController.boopla))
+        numberToolbar.barStyle = UIBarStyle.blackTranslucent
+        numberToolbar.items=[UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil),
+                             UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(CalculatorViewController.boopla))
         ]
         
         numberToolbar.sizeToFit()
@@ -85,8 +106,8 @@ class CalculatorViewController: UIViewController {
     func updateLabels() {
         numberOfPhotosTextField.text = String(calculator.numberOfPhotos)
         
-        let minutesOnPiker = calculator.minutesArray[clipLenghtPicker.selectedRowInComponent(0) % calculator.minutesArray.count]
-        let secondsOnPiker = calculator.secondsArray[clipLenghtPicker.selectedRowInComponent(1) % calculator.secondsArray.count]
+        let minutesOnPiker = calculator.minutesArray[clipLenghtPicker.selectedRow(inComponent: 0) % calculator.minutesArray.count]
+        let secondsOnPiker = calculator.secondsArray[clipLenghtPicker.selectedRow(inComponent: 1) % calculator.secondsArray.count]
         
         clipLenghtPicker.selectRow(480 + calculator.clipLength.minutes, inComponent: 0, animated: calculator.clipLength.minutes == minutesOnPiker ? false : true)
         clipLenghtPicker.selectRow(480 + calculator.clipLength.seconds, inComponent: 1, animated: calculator.clipLength.seconds == secondsOnPiker ? false : true)
@@ -104,6 +125,14 @@ class CalculatorViewController: UIViewController {
             memoryUsageLabel.text = String(Double(calculator.totalMemoryUsage) / 1000.0) + " Gb"
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "saveCalculations" {
+            let navigationController = segue.destination as! UINavigationController
+            let controller = navigationController.topViewController as! SavingViewController
+            controller.calc = calculator
+        }
+    }
 }
 
 
@@ -111,7 +140,7 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
     
     // MARK: UIPickerViewDataSource & UIPickerViewDelegate
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         if pickerView.tag == 1 {
             return 2
         } else if pickerView.tag == 2 {
@@ -124,7 +153,7 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
         
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView.tag == 1 {
             return 1000
         } else if pickerView.tag == 2 {
@@ -137,12 +166,12 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     
-    func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         var pickerLabel = view as! UILabel!
         if view == nil {  //if no label there yet
             pickerLabel = UILabel()
             //color the label's background
-            pickerLabel.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
+            pickerLabel?.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1.0)
         }
         let titleData : String
         if pickerView.tag == 1 {
@@ -172,20 +201,20 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
         
         let font = UIFont(name: "HelveticaNeue-Light", size: 17.0)
         
-        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:font! ,NSForegroundColorAttributeName:UIColor.blackColor()])
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:font! ,NSForegroundColorAttributeName:UIColor.black])
         pickerLabel!.attributedText = myTitle
-        pickerLabel!.textAlignment = .Center
-        pickerLabel.layer.cornerRadius = 4.0
-        pickerLabel.clipsToBounds = true
-        return pickerLabel
+        pickerLabel!.textAlignment = .center
+        pickerLabel?.layer.cornerRadius = 4.0
+        pickerLabel?.clipsToBounds = true
+        return pickerLabel!
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // Clip length picker
         if pickerView.tag == 1 {
             calculator.clipLength.hours = 0
@@ -224,12 +253,12 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
     
     
     // decimal input whit 1 dot || coma
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if (textField.text?.componentsSeparatedByString(".").count > 1 && string == ".")
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if ((textField.text?.components(separatedBy: ".").count)! > 1 && string == ".")
         {
             return false
         }
-        if (textField.text?.componentsSeparatedByString(",").count > 1 && string == ",")
+        if ((textField.text?.components(separatedBy: ",").count)! > 1 && string == ",")
         {
             return false
         }
@@ -237,7 +266,7 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
     }
     
     // read values from textFields
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         // Numer of photos textField
         if textField.tag == 4 {
             let str = textField.text
@@ -257,8 +286,7 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
             }
         }
         updateLabels()
-    }
-    
+    }  
     
     
     
