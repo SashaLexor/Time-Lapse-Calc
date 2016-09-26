@@ -24,7 +24,8 @@ class HudView: UIView {
         let boxWidth: CGFloat = 96.0
         let boxRect = CGRect(x: round((bounds.size.width - boxWidth)/2), y: round((bounds.size.height - boxHeight)/2), width: boxWidth, height: boxHeight)
         let roundedRect = UIBezierPath(roundedRect: boxRect, cornerRadius: 8)
-        UIColor(white: 0.3, alpha: 0.8).setFill()
+        let color = UIColor(red: 59/256, green: 67/256, blue: 78/256, alpha: 0.9) // Color as navigationBar
+        color.setFill()
         roundedRect.fill()
         
         if let image = UIImage(named: "Checkmark") {
@@ -43,12 +44,10 @@ class HudView: UIView {
         // 1
         alpha = 0
         transform = CGAffineTransform(scaleX: 1.3, y: 1.3) // 2
-        UIView.animate(withDuration: 0.3, animations: {
-            // 3
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.5, options: [], animations: {
             self.alpha = 1
-            self.transform = CGAffineTransform.identity })
+            self.transform = CGAffineTransform.identity
+            }, completion: nil)
         }
     }
 }
-
-// UIFont(name: "HelveticaNeue-Light", size: 17.0)

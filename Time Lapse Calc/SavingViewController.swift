@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreLocation
-
+import Dispatch
 
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -53,10 +53,13 @@ class SavingViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
-        //dismissViewControllerAnimated(true, completion: nil)
         date = Date()
         let hudView = HudView.hudInView(navigationController!.view, animated: true)
         hudView.text = "Saved"
+        
+        afterDelay(0.6) { // realised in Functions.swift
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func getLocation(_ sender: UIButton) {
@@ -139,7 +142,7 @@ class SavingViewController: UIViewController {
             numberOfPhotosLabel.text = String(calc.numberOfPhotos)
             clipLengthLabel.text = String(format: "%02d", calc.clipLength.hours) + ":" + String(format: "%02d", calc.clipLength.minutes) + ":" + String(format: "%02d", calc.clipLength.seconds)
             fpsLabel.text = "\(calc.framesPerSecond)"
-            shootingIntervalLabel.text = "\(calc.shootingInterval)"
+            shootingIntervalLabel.text = String(format: "%.2f", calc.shootingInterval)
             shootingDurationLabel.text = String(format: "%02d", calc.totalShootingDuration.hours) + ":" + String(format: "%02d", calc.totalShootingDuration.minutes) + ":" + String(format: "%02d", calc.totalShootingDuration.seconds)
             if calc.totalMemoryUsage < 1000 {
                 memoryUsageLabel.text = String(calc.totalMemoryUsage) + " Mb"
@@ -152,11 +155,8 @@ class SavingViewController: UIViewController {
     func updateMap() {
         // TEMP DISPLAY
         if let location = location {
-            
+            print("Location is: \(location)")
         } else {
-            numberOfPhotosLabel.text = ""
-            clipLengthLabel.text = ""
-            
             let statusMessage : String
             if let error = lastLocationError {
                 if error.domain == kCLErrorDomain && error.code == CLError.Code.denied.rawValue {
@@ -218,7 +218,7 @@ class SavingViewController: UIViewController {
             self.mapViewContainer.alpha = self.mapViewContainer.alpha == 1 ? 0 : 1
             self.getLocationButton.isHidden = !self.getLocationButton.isHidden
             self.getLocationButton.alpha = self.getLocationButton.alpha == 1 ? 0 : 1
-        }) 
+        })
         
     }
     
@@ -269,7 +269,7 @@ extension SavingViewController: CLLocationManagerDelegate {
 }
 
 
-// MARK: - CLLocationManagerDelegate
+// MARK: - UITextFieldDelegate
 
 extension SavingViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

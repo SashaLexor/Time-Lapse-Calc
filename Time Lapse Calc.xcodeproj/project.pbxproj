@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		272262851D980EAA0082E04B /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272262841D980EAA0082E04B /* Functions.swift */; };
+		272262881D996A470082E04B /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 272262861D996A470082E04B /* DataModel.xcdatamodeld */; };
 		274489E71D410B4B002106E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274489E61D410B4B002106E3 /* AppDelegate.swift */; };
 		274489EC1D410B4B002106E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274489EA1D410B4B002106E3 /* Main.storyboard */; };
 		274489EE1D410B4B002106E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274489ED1D410B4B002106E3 /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		272262841D980EAA0082E04B /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		272262871D996A470082E04B /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		274489E31D410B4B002106E3 /* Time Lapse Calc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Lapse Calc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		274489E61D410B4B002106E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		274489EB1D410B4B002106E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -64,11 +68,13 @@
 		274489E51D410B4B002106E3 /* Time Lapse Calc */ = {
 			isa = PBXGroup;
 			children = (
+				272262841D980EAA0082E04B /* Functions.swift */,
+				272262861D996A470082E04B /* DataModel.xcdatamodeld */,
 				27FDC4261D94078900104CFE /* Model */,
 				27FDC4271D9407B000104CFE /* Controller */,
 				27FDC4281D9407BF00104CFE /* View */,
-				274489EA1D410B4B002106E3 /* Main.storyboard */,
 				274489ED1D410B4B002106E3 /* Assets.xcassets */,
+				274489EA1D410B4B002106E3 /* Main.storyboard */,
 				274489EF1D410B4B002106E3 /* LaunchScreen.storyboard */,
 				274489F21D410B4B002106E3 /* Info.plist */,
 				279A74431D4A12FA00977326 /* timelapseEx.jpg */,
@@ -178,8 +184,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				279A74401D48F81D00977326 /* SavingViewController.swift in Sources */,
+				272262881D996A470082E04B /* DataModel.xcdatamodeld in Sources */,
 				274489F91D41265F002106E3 /* TimeLapseCalc.swift in Sources */,
 				27E9FD6F1D63951300EF041A /* HudView.swift in Sources */,
+				272262851D980EAA0082E04B /* Functions.swift in Sources */,
 				274489FF1D414EB9002106E3 /* CalculatorViewController.swift in Sources */,
 				279A74421D49125000977326 /* CalcTableViewCell.swift in Sources */,
 				274489E71D410B4B002106E3 /* AppDelegate.swift in Sources */,
@@ -348,6 +356,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		272262861D996A470082E04B /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				272262871D996A470082E04B /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 272262871D996A470082E04B /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 274489DB1D410B4B002106E3 /* Project object */;
 }
