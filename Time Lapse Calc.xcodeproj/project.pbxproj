@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		272262851D980EAA0082E04B /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272262841D980EAA0082E04B /* Functions.swift */; };
 		272262881D996A470082E04B /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 272262861D996A470082E04B /* DataModel.xcdatamodeld */; };
+		272262931D9970290082E04B /* Calculation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272262911D9970280082E04B /* Calculation+CoreDataClass.swift */; };
+		272262941D9970290082E04B /* Calculation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */; };
 		274489E71D410B4B002106E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274489E61D410B4B002106E3 /* AppDelegate.swift */; };
 		274489EC1D410B4B002106E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274489EA1D410B4B002106E3 /* Main.storyboard */; };
 		274489EE1D410B4B002106E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274489ED1D410B4B002106E3 /* Assets.xcassets */; };
@@ -24,6 +26,8 @@
 /* Begin PBXFileReference section */
 		272262841D980EAA0082E04B /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		272262871D996A470082E04B /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		272262911D9970280082E04B /* Calculation+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calculation+CoreDataClass.swift"; sourceTree = "<group>"; };
+		272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calculation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		274489E31D410B4B002106E3 /* Time Lapse Calc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Lapse Calc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		274489E61D410B4B002106E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		274489EB1D410B4B002106E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -49,6 +53,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		272262951D9976680082E04B /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				274489E61D410B4B002106E3 /* AppDelegate.swift */,
+				272262841D980EAA0082E04B /* Functions.swift */,
+				274489ED1D410B4B002106E3 /* Assets.xcassets */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		274489DA1D410B4B002106E3 = {
 			isa = PBXGroup;
 			children = (
@@ -68,12 +82,13 @@
 		274489E51D410B4B002106E3 /* Time Lapse Calc */ = {
 			isa = PBXGroup;
 			children = (
-				272262841D980EAA0082E04B /* Functions.swift */,
+				272262911D9970280082E04B /* Calculation+CoreDataClass.swift */,
+				272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */,
 				272262861D996A470082E04B /* DataModel.xcdatamodeld */,
 				27FDC4261D94078900104CFE /* Model */,
 				27FDC4271D9407B000104CFE /* Controller */,
 				27FDC4281D9407BF00104CFE /* View */,
-				274489ED1D410B4B002106E3 /* Assets.xcassets */,
+				272262951D9976680082E04B /* SupportingFiles */,
 				274489EA1D410B4B002106E3 /* Main.storyboard */,
 				274489EF1D410B4B002106E3 /* LaunchScreen.storyboard */,
 				274489F21D410B4B002106E3 /* Info.plist */,
@@ -93,7 +108,6 @@
 		27FDC4271D9407B000104CFE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				274489E61D410B4B002106E3 /* AppDelegate.swift */,
 				274489FE1D414EB9002106E3 /* CalculatorViewController.swift */,
 				279A743F1D48F81D00977326 /* SavingViewController.swift */,
 			);
@@ -189,8 +203,10 @@
 				27E9FD6F1D63951300EF041A /* HudView.swift in Sources */,
 				272262851D980EAA0082E04B /* Functions.swift in Sources */,
 				274489FF1D414EB9002106E3 /* CalculatorViewController.swift in Sources */,
+				272262931D9970290082E04B /* Calculation+CoreDataClass.swift in Sources */,
 				279A74421D49125000977326 /* CalcTableViewCell.swift in Sources */,
 				274489E71D410B4B002106E3 /* AppDelegate.swift in Sources */,
+				272262941D9970290082E04B /* Calculation+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,9 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 import Dispatch
+
 
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -47,6 +49,8 @@ class SavingViewController: UIViewController {
     var name = ""
     
     
+    var managedObjectContext : NSManagedObjectContext!
+    
     // MARK: - IBActions
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
@@ -57,9 +61,34 @@ class SavingViewController: UIViewController {
         let hudView = HudView.hudInView(navigationController!.view, animated: true)
         hudView.text = "Saved"
         
+        guard let calculator = calc else {
+            print("Cacl doesn't exist")
+            return
+        }
+        
+        let calculation = NSEntityDescription.insertNewObject( forEntityName: "Calculation", into: managedObjectContext) as! Calculation
+        calculation.name = savingName.text!
+        calculation.numberOfPhotos = Int64(calculator.numberOfPhotos)
+        calculation.clipLength = Int64(calculator.clipLength.totalTimeInSeconds)
+        calculation.fps = Double(calculator.framesPerSecond)
+        calculation.shootingInterval = Double(calculator.shootingInterval)
+        calculation.shootingDuration = Int64(calculator.totalShootingDuration.totalTimeInSeconds)
+        calculation.memoryUsage = Int64(calculator.totalMemoryUsage)
+        calculation.latitude = location?.coordinate.latitude as NSNumber?
+        calculation.longitude = location?.coordinate.longitude as NSNumber?
+        calculation.date = date as NSDate
+        
+        do {
+            try managedObjectContext.save()
+        } catch {
+            fatalCoreDataError(error: error)
+        }
+        
         afterDelay(0.6) { // realised in Functions.swift
             self.dismiss(animated: true, completion: nil)
         }
+        
+        
     }
     
     @IBAction func getLocation(_ sender: UIButton) {
@@ -113,6 +142,7 @@ class SavingViewController: UIViewController {
         }
         
         updateLabels()
+        print(managedObjectContext)
     }
     
     override func didReceiveMemoryWarning() {

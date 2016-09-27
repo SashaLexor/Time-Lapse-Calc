@@ -9,6 +9,13 @@
 import Foundation
 import Dispatch
 
+let MyManagedObjectContextSaveDidFailNotification = "MyManagedObjectContextSaveDidFailNotification"
+
+func fatalCoreDataError(error: Error) {
+    print("Core Data fatal error: \(error)")
+    NotificationCenter.default.post(name: NSNotification.Name(rawValue: MyManagedObjectContextSaveDidFailNotification), object: nil)
+}
+
 func afterDelay(_ seconds: Double, clouser: @escaping () -> ()) {
     let delay = DispatchTime.now().uptimeNanoseconds + UInt64(seconds * Double(NSEC_PER_SEC))
     let dispatchTimeDelay = DispatchTime(uptimeNanoseconds: delay)    

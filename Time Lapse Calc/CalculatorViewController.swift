@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 /* ???????
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
@@ -33,6 +34,7 @@ class CalculatorViewController: UIViewController {
     
     let calculator = TimeLapseCalc()
     let numberToolbar: UIToolbar = UIToolbar()
+    var managedObjectContext: NSManagedObjectContext!
     
     @IBOutlet weak var mainCalcView: UIView!
     @IBOutlet weak var numberOfPhotosTextField: UITextField!
@@ -131,6 +133,7 @@ class CalculatorViewController: UIViewController {
             let navigationController = segue.destination as! UINavigationController
             let controller = navigationController.topViewController as! SavingViewController
             controller.calc = calculator
+            controller.managedObjectContext = managedObjectContext  // Send managedObjectContext to CalculatorViewController (from AppDelegate)
         }
     }
 }
