@@ -69,6 +69,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let navigationController = tabBarControllers[0] as! UINavigationController
             let calculatorViewController = navigationController.topViewController as! CalculatorViewController
             calculatorViewController.managedObjectContext = managedObjectContext
+            
+            let secondNavigationController = tabBarControllers[1] as! UINavigationController
+            let savedCalculationcController = secondNavigationController.topViewController as! SavedCalculationsTableViewController
+            savedCalculationcController.managedObjectContext = managedObjectContext
         }
         
         listenForFatalCoreDataNotification()

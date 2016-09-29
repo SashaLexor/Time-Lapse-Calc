@@ -44,12 +44,52 @@ class SavingViewController: UIViewController {
     var updatingLocation = false
     var lastLocationError : NSError?
     var timer : Timer?
-    var calc : TimeLapseCalc?
     var date = Date()
-    var name = ""
-    
-    
     var managedObjectContext : NSManagedObjectContext!
+    
+    var calc : TimeLapseCalc? {
+        didSet {
+            if let calculator = calc {
+                numberOfPhotos = calculator.numberOfPhotos
+                clipLength = calculator.clipLength
+                fps = Double(calculator.framesPerSecond)
+                shootingInterval = Double(calculator.shootingInterval)
+                shootingDuration = calculator.totalShootingDuration
+                memoryUsage = calculator.totalMemoryUsage
+            }
+        }
+    }
+    var calculationToEdit: Calculation? {
+        didSet {
+            if let calculation = calculationToEdit {
+                name = calculation.name
+                numberOfPhotos = Int(calculation.numberOfPhotos)
+                clipLength = calculation.clipLength
+                fps = calculation.fps
+                shootingInterval = calculation.shootingInterval
+                shootingDuration = calculation.shootingDuration
+                memoryUsage = Int(calculation.memoryUsage)
+                guard let latitude = calculation.latitude else {
+                    print("calculation.latitude doesn't exist")
+                    return
+                }
+                guard let longitude = calculation.longitude else {
+                    print("calculation.longitude doesn't exist")
+                    return
+                }
+                location = CLLocation(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude))
+            }
+        }
+    }
+    
+    var name = ""
+    var numberOfPhotos = 0
+    var clipLength = Time()
+    var fps = 0.0
+    var shootingInterval = 0.0
+    var shootingDuration = Time()
+    var memoryUsage = 0
+    
     
     // MARK: - IBActions
     @IBAction func cancel(_ sender: UIBarButtonItem) {
@@ -59,21 +99,23 @@ class SavingViewController: UIViewController {
     @IBAction func save(_ sender: UIBarButtonItem) {
         date = Date()
         let hudView = HudView.hudInView(navigationController!.view, animated: true)
-        hudView.text = "Saved"
         
-        guard let calculator = calc else {
-            print("Cacl doesn't exist")
-            return
+        let calculation: Calculation
+        if let tmp = calculationToEdit {
+            hudView.text = "Updated"
+            calculation = tmp
+        } else {
+            hudView.text = "Saved"
+            calculation = NSEntityDescription.insertNewObject( forEntityName: "Calculation", into: managedObjectContext) as! Calculation
         }
         
-        let calculation = NSEntityDescription.insertNewObject( forEntityName: "Calculation", into: managedObjectContext) as! Calculation
         calculation.name = savingName.text!
-        calculation.numberOfPhotos = Int64(calculator.numberOfPhotos)
-        calculation.clipLength = Int64(calculator.clipLength.totalTimeInSeconds)
-        calculation.fps = Double(calculator.framesPerSecond)
-        calculation.shootingInterval = Double(calculator.shootingInterval)
-        calculation.shootingDuration = Int64(calculator.totalShootingDuration.totalTimeInSeconds)
-        calculation.memoryUsage = Int64(calculator.totalMemoryUsage)
+        calculation.numberOfPhotos = Int64(numberOfPhotos)
+        calculation.clipLength = clipLength
+        calculation.fps = fps
+        calculation.shootingInterval = shootingInterval
+        calculation.shootingDuration = shootingDuration
+        calculation.memoryUsage = Int64(memoryUsage)
         calculation.latitude = location?.coordinate.latitude as NSNumber?
         calculation.longitude = location?.coordinate.longitude as NSNumber?
         calculation.date = date as NSDate
@@ -83,12 +125,13 @@ class SavingViewController: UIViewController {
         } catch {
             fatalCoreDataError(error: error)
         }
-        
+        /*
         afterDelay(0.6) { // realised in Functions.swift
             self.dismiss(animated: true, completion: nil)
         }
+ */
         
-        
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func getLocation(_ sender: UIButton) {
@@ -141,6 +184,10 @@ class SavingViewController: UIViewController {
             mainSubView.layer.borderColor = UIColor.white.cgColor
         }
         
+        if let calculation = calculationToEdit {
+            title = "Edit Calculation"
+        }
+        
         updateLabels()
         print(managedObjectContext)
     }
@@ -168,17 +215,16 @@ class SavingViewController: UIViewController {
     }
     
     func updateLabels() {
-        if let calc = calc {
-            numberOfPhotosLabel.text = String(calc.numberOfPhotos)
-            clipLengthLabel.text = String(format: "%02d", calc.clipLength.hours) + ":" + String(format: "%02d", calc.clipLength.minutes) + ":" + String(format: "%02d", calc.clipLength.seconds)
-            fpsLabel.text = "\(calc.framesPerSecond)"
-            shootingIntervalLabel.text = String(format: "%.2f", calc.shootingInterval)
-            shootingDurationLabel.text = String(format: "%02d", calc.totalShootingDuration.hours) + ":" + String(format: "%02d", calc.totalShootingDuration.minutes) + ":" + String(format: "%02d", calc.totalShootingDuration.seconds)
-            if calc.totalMemoryUsage < 1000 {
-                memoryUsageLabel.text = String(calc.totalMemoryUsage) + " Mb"
-            } else {
-                memoryUsageLabel.text = String(Double(calc.totalMemoryUsage) / 1000.0) + " Gb"
-            }
+        savingName.text = name
+        numberOfPhotosLabel.text = String(numberOfPhotos)
+        clipLengthLabel.text = String(format: "%02d", clipLength.hours) + ":" + String(format: "%02d", clipLength.minutes) + ":" + String(format: "%02d", clipLength.seconds)
+        fpsLabel.text = "\(fps)"
+        shootingIntervalLabel.text = String(format: "%.2f", shootingInterval)
+        shootingDurationLabel.text = String(format: "%02d", shootingDuration.hours) + ":" + String(format: "%02d", shootingDuration.minutes) + ":" + String(format: "%02d", shootingDuration.seconds)
+        if memoryUsage < 1000 {
+            memoryUsageLabel.text = String(memoryUsage) + " Mb"
+        } else {
+            memoryUsageLabel.text = String(Double(memoryUsage) / 1000.0) + " Gb"
         }
     }
     

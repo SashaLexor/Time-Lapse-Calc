@@ -18,8 +18,9 @@
 		274489F91D41265F002106E3 /* TimeLapseCalc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274489F81D41265F002106E3 /* TimeLapseCalc.swift */; };
 		274489FF1D414EB9002106E3 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274489FE1D414EB9002106E3 /* CalculatorViewController.swift */; };
 		279A74401D48F81D00977326 /* SavingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279A743F1D48F81D00977326 /* SavingViewController.swift */; };
-		279A74421D49125000977326 /* CalcTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279A74411D49125000977326 /* CalcTableViewCell.swift */; };
 		279A74441D4A12FA00977326 /* timelapseEx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 279A74431D4A12FA00977326 /* timelapseEx.jpg */; };
+		27D334001D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D333FF1D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift */; };
+		27D334021D9AD50800FF0DC7 /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D334011D9AD50800FF0DC7 /* CalculationCell.swift */; };
 		27E9FD6F1D63951300EF041A /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E9FD6E1D63951300EF041A /* HudView.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,8 +38,9 @@
 		274489F81D41265F002106E3 /* TimeLapseCalc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeLapseCalc.swift; sourceTree = "<group>"; };
 		274489FE1D414EB9002106E3 /* CalculatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
 		279A743F1D48F81D00977326 /* SavingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavingViewController.swift; sourceTree = "<group>"; };
-		279A74411D49125000977326 /* CalcTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcTableViewCell.swift; sourceTree = "<group>"; };
 		279A74431D4A12FA00977326 /* timelapseEx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = timelapseEx.jpg; sourceTree = "<group>"; };
+		27D333FF1D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedCalculationsTableViewController.swift; sourceTree = "<group>"; };
+		27D334011D9AD50800FF0DC7 /* CalculationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
 		27E9FD6E1D63951300EF041A /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,8 +84,6 @@
 		274489E51D410B4B002106E3 /* Time Lapse Calc */ = {
 			isa = PBXGroup;
 			children = (
-				272262911D9970280082E04B /* Calculation+CoreDataClass.swift */,
-				272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */,
 				272262861D996A470082E04B /* DataModel.xcdatamodeld */,
 				27FDC4261D94078900104CFE /* Model */,
 				27FDC4271D9407B000104CFE /* Controller */,
@@ -100,6 +100,8 @@
 		27FDC4261D94078900104CFE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				272262911D9970280082E04B /* Calculation+CoreDataClass.swift */,
+				272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */,
 				274489F81D41265F002106E3 /* TimeLapseCalc.swift */,
 			);
 			name = Model;
@@ -109,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				274489FE1D414EB9002106E3 /* CalculatorViewController.swift */,
+				27D333FF1D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift */,
 				279A743F1D48F81D00977326 /* SavingViewController.swift */,
 			);
 			name = Controller;
@@ -117,8 +120,8 @@
 		27FDC4281D9407BF00104CFE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				279A74411D49125000977326 /* CalcTableViewCell.swift */,
 				27E9FD6E1D63951300EF041A /* HudView.swift */,
+				27D334011D9AD50800FF0DC7 /* CalculationCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -204,7 +207,8 @@
 				272262851D980EAA0082E04B /* Functions.swift in Sources */,
 				274489FF1D414EB9002106E3 /* CalculatorViewController.swift in Sources */,
 				272262931D9970290082E04B /* Calculation+CoreDataClass.swift in Sources */,
-				279A74421D49125000977326 /* CalcTableViewCell.swift in Sources */,
+				27D334001D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift in Sources */,
+				27D334021D9AD50800FF0DC7 /* CalculationCell.swift in Sources */,
 				274489E71D410B4B002106E3 /* AppDelegate.swift in Sources */,
 				272262941D9970290082E04B /* Calculation+CoreDataProperties.swift in Sources */,
 			);
