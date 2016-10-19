@@ -12,15 +12,6 @@ import CoreData
 import Dispatch
 import MapKit
 
-
-private let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .medium
-    formatter.timeStyle = .short
-    
-    return formatter
-}()
-
 class SavingViewController: UIViewController {
     
     // MARK: - Main views

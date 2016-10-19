@@ -8,27 +8,7 @@
 
 import UIKit
 import CoreData
-/* ???????
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-*/
 
 class CalculatorViewController: UIViewController {
     
@@ -49,6 +29,30 @@ class CalculatorViewController: UIViewController {
     
     @IBOutlet var smallViews: [UIView]!
     
+    @IBAction func shareButtomTouchUp(_ sender: UIButton) {
+        let date = Date()
+        let dateStr = dateFormatter.string(from: date)
+        let numberOfPhotos = String(calculator.numberOfPhotos)
+        let clipLength = String(format: "%02d", calculator.clipLength.hours) + ":" + String(format: "%02d", calculator.clipLength.minutes) + ":" + String(format: "%02d", calculator.clipLength.seconds)
+        let fps = String(calculator.framesPerSecond) + " fps"
+        let shootingInterval = String(format: "%.02f", calculator.shootingInterval)
+ + " sec."
+        
+        let shootingDuration = String(format: "%02d", calculator.totalShootingDuration.hours) + ":" + String(format: "%02d", calculator.totalShootingDuration.minutes) + ":" + String(format: "%02d", calculator.totalShootingDuration.seconds)
+        
+        var memoryUsage = ""
+        if calculator.totalMemoryUsage < 1000 {
+            memoryUsage = String(calculator.totalMemoryUsage) + " Mb"
+        } else {
+            memoryUsage = String(Double(calculator.totalMemoryUsage) / 1000.0) + " Gb"
+        }
+        
+        
+        let str = "Time Lapse Calculations\n\(dateStr)\n\nNumber of photos: \(numberOfPhotos)\nClip lenght: \(clipLength)\nFrames per second: \(fps)\nShooting interval: \(shootingInterval)\nShooting duration: \(shootingDuration)\nMemory usage: \(memoryUsage)"
+        let activityViewController = UIActivityViewController(activityItems: [str], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
+        
+    }
 
     
     override func viewDidLoad() {
@@ -225,7 +229,6 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
             titleData = ""
         }
         
-        
         let font = UIFont(name: "HelveticaNeue-Light", size: 17.0)
         
         let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:font! ,NSForegroundColorAttributeName:UIColor.black])
@@ -313,8 +316,7 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
             }
         }
         updateLabels()
-    }  
-    
+    }     
     
     
     

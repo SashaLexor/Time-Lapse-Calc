@@ -11,6 +11,14 @@ import Dispatch
 import CoreLocation
 import MapKit
 
+let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .medium
+    formatter.timeStyle = .short
+    formatter.locale = Locale(identifier: "en_US")
+    return formatter
+}()
+
 let MyManagedObjectContextSaveDidFailNotification = "MyManagedObjectContextSaveDidFailNotification"
 
 let applicationDocumentsDirectory: String = {
