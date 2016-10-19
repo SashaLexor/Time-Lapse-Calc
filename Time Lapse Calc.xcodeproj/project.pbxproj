@@ -22,6 +22,7 @@
 		27D334021D9AD50800FF0DC7 /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D334011D9AD50800FF0DC7 /* CalculationCell.swift */; };
 		27D334081D9D672A00FF0DC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27D334071D9D672A00FF0DC7 /* Main.storyboard */; };
 		27E9FD6F1D63951300EF041A /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E9FD6E1D63951300EF041A /* HudView.swift */; };
+		27EA1A531DB7A60000755340 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27EA1A521DB7A60000755340 /* UIImage+Resize.swift */; };
 		27FDE8831D9E59C5006F35FD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FDE8821D9E59C5006F35FD /* MapKit.framework */; };
 		27FDE8851D9E76B5006F35FD /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FDE8841D9E76B5006F35FD /* CustomAnnotation.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		27D334011D9AD50800FF0DC7 /* CalculationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
 		27D334071D9D672A00FF0DC7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		27E9FD6E1D63951300EF041A /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
+		27EA1A521DB7A60000755340 /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
 		27FDE8821D9E59C5006F35FD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		27FDE8841D9E76B5006F35FD /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,8 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				274489E61D410B4B002106E3 /* AppDelegate.swift */,
+				27EA1A521DB7A60000755340 /* UIImage+Resize.swift */,
 				272262841D980EAA0082E04B /* Functions.swift */,
 				274489ED1D410B4B002106E3 /* Assets.xcassets */,
+				272262861D996A470082E04B /* DataModel.xcdatamodeld */,
 			);
 			name = SupportingFiles;
 			sourceTree = "<group>";
@@ -90,7 +94,6 @@
 		274489E51D410B4B002106E3 /* Time Lapse Calc */ = {
 			isa = PBXGroup;
 			children = (
-				272262861D996A470082E04B /* DataModel.xcdatamodeld */,
 				27FDC4261D94078900104CFE /* Model */,
 				27FDC4271D9407B000104CFE /* Controller */,
 				27FDC4281D9407BF00104CFE /* View */,
@@ -107,9 +110,9 @@
 			isa = PBXGroup;
 			children = (
 				272262911D9970280082E04B /* Calculation+CoreDataClass.swift */,
-				27FDE8841D9E76B5006F35FD /* CustomAnnotation.swift */,
 				272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */,
 				274489F81D41265F002106E3 /* TimeLapseCalc.swift */,
+				27FDE8841D9E76B5006F35FD /* CustomAnnotation.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -220,6 +223,7 @@
 				274489F91D41265F002106E3 /* TimeLapseCalc.swift in Sources */,
 				27E9FD6F1D63951300EF041A /* HudView.swift in Sources */,
 				272262851D980EAA0082E04B /* Functions.swift in Sources */,
+				27EA1A531DB7A60000755340 /* UIImage+Resize.swift in Sources */,
 				274489FF1D414EB9002106E3 /* CalculatorViewController.swift in Sources */,
 				272262931D9970290082E04B /* Calculation+CoreDataClass.swift in Sources */,
 				27D334001D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift in Sources */,

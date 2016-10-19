@@ -30,6 +30,7 @@ extension Calculation {
     @NSManaged public var shootingDurationMinutes: Int64
     @NSManaged public var shootingDurationSeconds: Int64
     @NSManaged public var memoryUsage: Int64
+    @NSManaged public var photoID: NSNumber?
     
     var clipLength: Time {
         get {
@@ -52,5 +53,53 @@ extension Calculation {
             self.shootingDurationSeconds = Int64(newValue.seconds)
         }        
     }
+    
+    var hasPhoto: Bool {
+        return photoID != nil
+    }
+    
+    var photoPath: String {
+        assert(photoID != nil, "No photo ID set")
+        let filename = "Photo-\(photoID!.intValue).jpg"
+        let fullPhotoPath = (applicationDocumentsDirectory as NSString).appendingPathComponent(filename)
+        print(fullPhotoPath)
+        return fullPhotoPath
+    }
+    
+    var photoURL: URL {
+        assert(photoID != nil, "No photo ID set")
+        let filename = "Photo-\(photoID!.intValue).jpg"
+        
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent(filename)
+        return fileURL
+        
+    }
+    
+    var photoImage: UIImage? {
+        return UIImage(contentsOfFile: photoPath)
+        
+    }
+    
+    class func nextPhotoID() -> Int {
+        let userDefaults = UserDefaults.standard
+        let currentID = userDefaults.integer(forKey: "PhotoID")
+        userDefaults.set(currentID + 1, forKey: "PhotoID")
+        userDefaults.synchronize()
+        return currentID
+    }
+    
+    func removePhotoFile() {
+        if hasPhoto {
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: photoPath) {
+                do {
+                    try fileManager.removeItem(atPath: photoPath)
+                } catch {
+                    print("Error removing file: \(error)")
+                }                
+            }
+        }
+    }
+   
     
 }

@@ -13,6 +13,10 @@ import MapKit
 
 let MyManagedObjectContextSaveDidFailNotification = "MyManagedObjectContextSaveDidFailNotification"
 
+let applicationDocumentsDirectory: String = {
+    let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+    return paths[0] }()
+
 func fatalCoreDataError(error: Error) {
     print("Core Data fatal error: \(error)")
     NotificationCenter.default.post(name: NSNotification.Name(rawValue: MyManagedObjectContextSaveDidFailNotification), object: nil)

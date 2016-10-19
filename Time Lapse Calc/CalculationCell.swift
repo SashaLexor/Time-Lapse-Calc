@@ -46,6 +46,15 @@ class CalculationCell: UITableViewCell {
         clipLengthLabel.text = String(calculation.clipLength.totalTimeInSeconds)
         intervalLabel.text = String(format: "%.2f", calculation.shootingInterval)
         memoryUsageLabel.text = String(calculation.memoryUsage)
+        calculationImageView.image = image(forCalculation: calculation)
+    }
+    
+    func image(forCalculation calculation: Calculation) -> UIImage {
+        let imageViewSize = CGSize(width: calculationImageView.bounds.width, height: calculationImageView.bounds.height)
+        if calculation.hasPhoto, let image = calculation.photoImage {
+            return image.resizedImageWithBounds(bounds: imageViewSize)
+        }
+        return UIImage(named: "timelapseEx.jpg")!.resizedImageWithBounds(bounds: imageViewSize)
     }
 
 }

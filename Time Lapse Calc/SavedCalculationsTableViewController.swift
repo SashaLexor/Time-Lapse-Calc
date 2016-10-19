@@ -97,6 +97,7 @@ class SavedCalculationsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let calculation = fetchedResultsController.object(at: indexPath)
+            calculation.removePhotoFile()
             managedObjectContext.delete(calculation)
             
             do {

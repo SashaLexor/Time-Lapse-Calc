@@ -11,5 +11,6 @@ import CoreData
 import MapKit
 
 public class Calculation: NSManagedObject {
+    
 
 }

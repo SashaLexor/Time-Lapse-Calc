@@ -33,7 +33,7 @@ class SavingViewController: UIViewController {
     @IBOutlet weak var addPhotoImageView: UIImageView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var addPhotoButton: UIButton!
-   
+    
     
     
     // MARK: -  Info labels
@@ -121,9 +121,11 @@ class SavingViewController: UIViewController {
         if let tmp = calculationToEdit {
             hudView.text = "Updated"
             calculation = tmp
+            
         } else {
             hudView.text = "Saved"
             calculation = NSEntityDescription.insertNewObject( forEntityName: "Calculation", into: managedObjectContext) as! Calculation
+            calculation.photoID = nil
         }
         
         calculation.name = savingName.text!
@@ -137,15 +139,29 @@ class SavingViewController: UIViewController {
         calculation.longitude = location?.coordinate.longitude as NSNumber?
         calculation.date = date as NSDate
         
+        if let image = image {
+            if !calculation.hasPhoto {
+                calculation.photoID = Calculation.nextPhotoID() as NSNumber?
+            }
+            if let data = UIImageJPEGRepresentation(image, 0.5) {
+                do {
+                    try data.write(to: calculation.photoURL, options: Data.WritingOptions.atomicWrite)
+                } catch {
+                    print("Error writing file: \(error)")
+                }
+            }
+        }
+        
         do {
             try managedObjectContext.save()
         } catch {
             fatalCoreDataError(error: error)
         }
+        
         /*
-        afterDelay(0.6) { // Implemented in Functions.swift                     !!!! ERROR HERE TEST ON IPAD
-            self.dismiss(animated: true, completion: nil)
-        }
+         afterDelay(0.6) { // Implemented in Functions.swift                     !!!! ERROR HERE TEST ON IPAD
+         self.dismiss(animated: true, completion: nil)
+         }
          */
         stopLocationManager()
         self.dismiss(animated: true, completion: nil)
@@ -175,7 +191,6 @@ class SavingViewController: UIViewController {
     
     
     @IBAction func addPhoto(_ sender: AnyObject) {
-        print("add photo button touched")
         pickPhoto()
     }
     
@@ -209,8 +224,13 @@ class SavingViewController: UIViewController {
             mainSubView.layer.borderColor = UIColor.white.cgColor
         }
         
-        if let _ = calculationToEdit {
+        if let calculation = calculationToEdit {
             title = "Edit Calculation"
+            if calculation.hasPhoto {
+                if let image = calculation.photoImage {
+                    showImage(image: image)
+                }
+            }
         }
         
         if let _ = location {
@@ -230,7 +250,6 @@ class SavingViewController: UIViewController {
     
     
     deinit {
-        print("*** deinit \(self)")
         NotificationCenter.default.removeObserver(notificationObserver)
     }
     
@@ -266,7 +285,7 @@ class SavingViewController: UIViewController {
     }
     
     func updateMap() {
-
+        
         if let location = location {
             print("Location is: \(location)")
             let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000, 1000)
