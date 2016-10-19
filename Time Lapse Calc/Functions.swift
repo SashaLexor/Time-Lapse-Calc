@@ -8,6 +8,8 @@
 
 import Foundation
 import Dispatch
+import CoreLocation
+import MapKit
 
 let MyManagedObjectContextSaveDidFailNotification = "MyManagedObjectContextSaveDidFailNotification"
 
@@ -21,3 +23,4 @@ func afterDelay(_ seconds: Double, clouser: @escaping () -> ()) {
     let dispatchTimeDelay = DispatchTime(uptimeNanoseconds: delay)    
     DispatchQueue.main.asyncAfter(deadline: dispatchTimeDelay, execute: clouser)
 }
+

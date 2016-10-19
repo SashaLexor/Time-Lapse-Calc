@@ -119,7 +119,6 @@
                                                                     <constraint firstItem="zOn-l2-WJY" firstAttribute="top" secondItem="Id4-mZ-Lxv" secondAttribute="top" id="dkP-3v-sYF"/>
                                                                     <constraint firstAttribute="trailing" secondItem="zOn-l2-WJY" secondAttribute="trailing" constant="20" symbolic="YES" id="kgU-gT-URb"/>
                                                                     <constraint firstAttribute="bottom" secondItem="zOn-l2-WJY" secondAttribute="bottom" id="nPz-lx-60s"/>
-                                                                    <constraint firstItem="OOk-kY-LiW" firstAttribute="width" secondItem="cjS-GN-1gD" secondAttribute="width" id="sWc-lO-9qY"/>
                                                                     <constraint firstItem="OOk-kY-LiW" firstAttribute="bottom" secondItem="cjS-GN-1gD" secondAttribute="bottom" id="t3k-vh-kCk"/>
                                                                     <constraint firstItem="zOn-l2-WJY" firstAttribute="leading" secondItem="Id4-mZ-Lxv" secondAttribute="leading" constant="20" symbolic="YES" id="u0L-bz-uIe"/>
                                                                 </constraints>
@@ -248,7 +247,6 @@
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstItem="gn5-hH-iZD" firstAttribute="bottom" secondItem="HaU-tU-UpK" secondAttribute="bottom" id="BZr-Y9-G8T"/>
-                                                                    <constraint firstItem="gn5-hH-iZD" firstAttribute="width" secondItem="HaU-tU-UpK" secondAttribute="width" id="FFn-4H-G8T"/>
                                                                     <constraint firstItem="gn5-hH-iZD" firstAttribute="trailing" secondItem="HaU-tU-UpK" secondAttribute="trailing" id="MAn-qA-v6n"/>
                                                                     <constraint firstItem="gn5-hH-iZD" firstAttribute="leading" secondItem="HaU-tU-UpK" secondAttribute="leading" id="gI8-Wc-PTz"/>
                                                                     <constraint firstItem="vlL-33-kcW" firstAttribute="leading" secondItem="ZC4-dN-m67" secondAttribute="leading" constant="20" symbolic="YES" id="qDl-o0-x4f"/>
@@ -396,11 +394,48 @@
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZ6-Cn-apY">
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timelapseEx.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="pdX-9v-Ilz"/>
+                                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g6e-DY-a5u">
+                                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zb2-y2-pz3">
+                                                            <frame key="frameInset"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <subviews>
+                                                                <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1SG-93-4LJ">
+                                                                    <frame key="frameInset"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="ynf-9V-eJW">
+                                                                        <frame key="frameInset"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    </view>
+                                                                    <vibrancyEffect>
+                                                                        <blurEffect style="light"/>
+                                                                    </vibrancyEffect>
+                                                                </visualEffectView>
+                                                            </subviews>
+                                                        </view>
+                                                        <blurEffect style="light"/>
+                                                    </visualEffectView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYZ-uO-r4Y">
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                        <state key="normal" title="Add Photo">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="addPhoto:" destination="kRx-32-AG8" eventType="touchUpInside" id="Jvf-Aa-rN8"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.20392156859999999" green="0.63921568630000003" blue="0.93333333330000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="PYZ-uO-r4Y" secondAttribute="bottom" id="CMB-C0-bRD"/>
                                                     <constraint firstAttribute="bottom" secondItem="pdX-9v-Ilz" secondAttribute="bottom" id="DvE-BH-5wb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="g6e-DY-a5u" secondAttribute="trailing" id="LYd-Ft-Mmp"/>
+                                                    <constraint firstItem="g6e-DY-a5u" firstAttribute="leading" secondItem="YZ6-Cn-apY" secondAttribute="leading" id="Mvj-6C-Oww"/>
+                                                    <constraint firstItem="g6e-DY-a5u" firstAttribute="top" secondItem="YZ6-Cn-apY" secondAttribute="top" id="Qeq-d4-Qe4"/>
                                                     <constraint firstItem="pdX-9v-Ilz" firstAttribute="top" secondItem="YZ6-Cn-apY" secondAttribute="top" id="c0y-mn-QPJ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="PYZ-uO-r4Y" secondAttribute="trailing" id="eZa-q3-f6a"/>
+                                                    <constraint firstItem="PYZ-uO-r4Y" firstAttribute="leading" secondItem="YZ6-Cn-apY" secondAttribute="leading" id="fgL-tF-UjD"/>
+                                                    <constraint firstAttribute="bottom" secondItem="g6e-DY-a5u" secondAttribute="bottom" id="keO-eY-hCN"/>
+                                                    <constraint firstItem="PYZ-uO-r4Y" firstAttribute="top" secondItem="YZ6-Cn-apY" secondAttribute="top" id="mcp-Np-pmq"/>
                                                     <constraint firstAttribute="trailing" secondItem="pdX-9v-Ilz" secondAttribute="trailing" id="nUl-7x-f6g"/>
                                                     <constraint firstItem="pdX-9v-Ilz" firstAttribute="leading" secondItem="YZ6-Cn-apY" secondAttribute="leading" id="sFN-Gt-Bdt"/>
                                                 </constraints>
@@ -666,11 +701,16 @@
                                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BUC-9d-pE4"/>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.96680689099999995" green="0.62475028779999997" blue="0.0090562826789999992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
+                                                            <constraint firstItem="BUC-9d-pE4" firstAttribute="leading" secondItem="Z0E-9n-EfT" secondAttribute="leading" id="5tW-BO-2cJ"/>
+                                                            <constraint firstItem="BUC-9d-pE4" firstAttribute="top" secondItem="Z0E-9n-EfT" secondAttribute="top" id="84q-61-Xd8"/>
+                                                            <constraint firstAttribute="trailing" secondItem="BUC-9d-pE4" secondAttribute="trailing" id="HM8-Ri-wwI"/>
                                                             <constraint firstItem="crw-DH-Tmr" firstAttribute="centerX" secondItem="Z0E-9n-EfT" secondAttribute="centerX" id="JbO-cJ-4Py"/>
                                                             <constraint firstItem="crw-DH-Tmr" firstAttribute="centerY" secondItem="Z0E-9n-EfT" secondAttribute="centerY" id="Z54-CE-Km3"/>
+                                                            <constraint firstAttribute="bottom" secondItem="BUC-9d-pE4" secondAttribute="bottom" id="xr5-up-EWe"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -734,11 +774,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addPhotoButton" destination="PYZ-uO-r4Y" id="SdV-8O-vy9"/>
+                        <outlet property="addPhotoImageView" destination="pdX-9v-Ilz" id="3pQ-JX-bYB"/>
                         <outlet property="addPhotoView" destination="YZ6-Cn-apY" id="F8M-FM-TzT"/>
                         <outlet property="clipLengthLabel" destination="nr4-Cj-dvJ" id="nG8-vY-i1G"/>
                         <outlet property="fpsLabel" destination="GXL-p7-8M9" id="oGc-pW-gcY"/>
                         <outlet property="getLocationButton" destination="Q6d-Yb-pKv" id="Jdp-WP-TnL"/>
                         <outlet property="mainInfoView" destination="zW4-kh-VmC" id="udD-MI-Byy"/>
+                        <outlet property="mapView" destination="BUC-9d-pE4" id="fUw-Pk-eEg"/>
                         <outlet property="mapViewContainer" destination="Z0E-9n-EfT" id="XK8-eU-B36"/>
                         <outlet property="memoryUsageLabel" destination="76Q-sj-WBo" id="efZ-Jb-kja"/>
                         <outlet property="messageLabelOnMap" destination="crw-DH-Tmr" id="vn9-oj-7WF"/>
@@ -746,6 +789,7 @@
                         <outlet property="savingName" destination="GFA-ac-hrB" id="6Qt-gB-y1y"/>
                         <outlet property="shootingDurationLabel" destination="4JM-Jx-po6" id="md9-7D-rcd"/>
                         <outlet property="shootingIntervalLabel" destination="DzZ-HD-Zl8" id="3wV-82-bzD"/>
+                        <outlet property="visualEffectView" destination="g6e-DY-a5u" id="8rF-sB-CZM"/>
                         <outletCollection property="mainSubViews" destination="9Ke-ys-P8G" collectionClass="NSMutableArray" id="QJQ-bn-KP1"/>
                         <outletCollection property="mainSubViews" destination="R1W-SO-xVd" collectionClass="NSMutableArray" id="lCl-Zn-mNP"/>
                         <outletCollection property="mainSubViews" destination="FQ6-Ts-ddz" collectionClass="NSMutableArray" id="A4y-5a-Azx"/>
@@ -757,7 +801,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJZ-au-yuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3959" y="871"/>
+            <point key="canvasLocation" x="4213.6000000000004" y="869.41529235382313"/>
         </scene>
         <!--Options-->
         <scene sceneID="hfQ-Cz-qZb">
@@ -870,7 +914,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qbk-NQ-OeB" id="ov3-aq-iVP">
-                                    <frame key="frameInset" width="375" height="149"/>
+                                    <frame key="frameInset" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Whd-13-8OV">
@@ -982,7 +1026,7 @@
                                     <outlet property="memoryUsageLabel" destination="mhH-Bj-rMV" id="wVc-Cu-LTC"/>
                                     <outlet property="nameLabel" destination="Jlc-k7-I5I" id="bA1-1r-hGz"/>
                                     <outlet property="numberOfPhotosLabel" destination="8Wb-b9-5NQ" id="wIi-5r-Cxb"/>
-                                    <segue destination="4Bl-Vd-O3T" kind="show" identifier="editCalculation" id="udh-CE-2ej"/>
+                                    <segue destination="4Bl-Vd-O3T" kind="show" identifier="editCalculation" id="qcs-2w-Xf9"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1073,6 +1117,6 @@
         <image name="timelapseEx.jpg" width="1920" height="1200"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="udh-CE-2ej"/>
+        <segue reference="UOx-tE-OhR"/>
     </inferredMetricsTieBreakers>
 </document>

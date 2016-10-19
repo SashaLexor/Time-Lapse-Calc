@@ -44,7 +44,7 @@ class CalculationCell: UITableViewCell {
         nameLabel.text = calculation.name
         numberOfPhotosLabel.text = String(calculation.numberOfPhotos)
         clipLengthLabel.text = String(calculation.clipLength.totalTimeInSeconds)
-        intervalLabel.text = String(calculation.shootingInterval)
+        intervalLabel.text = String(format: "%.2f", calculation.shootingInterval)
         memoryUsageLabel.text = String(calculation.memoryUsage)
     }
 

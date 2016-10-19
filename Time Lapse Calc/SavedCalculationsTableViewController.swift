@@ -64,7 +64,6 @@ class SavedCalculationsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
@@ -94,15 +93,6 @@ class SavedCalculationsTableViewController: UITableViewController {
         }
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -115,33 +105,7 @@ class SavedCalculationsTableViewController: UITableViewController {
                 fatalCoreDataError(error: error)
             }
         }
-        
 
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     }
 }
 
@@ -155,19 +119,15 @@ extension SavedCalculationsTableViewController:  NSFetchedResultsControllerDeleg
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .insert:
-            print("*** NSFetchedResultController INSERT object ***")
             tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.fade)
         case .delete:
-            print("*** NSFetchedResultController DELETE object ***")
             tableView.deleteRows(at: [indexPath!], with: .fade)
         case .update:
-            print("*** NSFetchedResultController UPDATE object ***")
             if let cell = tableView.cellForRow(at: indexPath!) as? CalculationCell {
                 let calculation = controller.object(at: indexPath!) as! Calculation
                 cell.configure(forCalculation: calculation)
             }
         case .move:
-            print("*** NSFetchedResultController MOVE object ***")
             tableView.deleteRows(at: [indexPath!], with: .fade)
             tableView.insertRows(at: [newIndexPath!], with: .fade)
         }
@@ -176,10 +136,8 @@ extension SavedCalculationsTableViewController:  NSFetchedResultsControllerDeleg
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
         case .insert:
-            print("*** NSFetchedResultController INSERT section ***")
             tableView.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         case .delete:
-            print("*** NSFetchedResultController DELETE section ***")
             tableView.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
         case .update:
             print("*** NSFetchedResultController UPDATE section ***")
@@ -189,7 +147,6 @@ extension SavedCalculationsTableViewController:  NSFetchedResultsControllerDeleg
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("*** NSFetchedResultController DID CHANGE CONTENT section ***")
         tableView.endUpdates()
     }
 }

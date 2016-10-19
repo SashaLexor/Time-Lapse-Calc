@@ -35,6 +35,7 @@ class CalculatorViewController: UIViewController {
     let calculator = TimeLapseCalc()
     let numberToolbar: UIToolbar = UIToolbar()
     var managedObjectContext: NSManagedObjectContext!
+    var notificationObserver: AnyObject!
     
     @IBOutlet weak var mainCalcView: UIView!
     @IBOutlet weak var numberOfPhotosTextField: UITextField!
@@ -91,6 +92,13 @@ class CalculatorViewController: UIViewController {
         numberOfPhotosTextField.inputAccessoryView = numberToolbar //do it for every relevant textfield if there are more than one
         shootingIntervalTextField.inputAccessoryView = numberToolbar
         
+        listenForBackgroundNotification()
+        
+    }
+    
+    deinit {
+        print("Deinit CalculatorViewController")
+        notificationObserver = nil
     }
     
     override func didReceiveMemoryWarning() {
@@ -136,6 +144,22 @@ class CalculatorViewController: UIViewController {
             controller.managedObjectContext = managedObjectContext  // Send managedObjectContext to CalculatorViewController (from AppDelegate)
         }
     }
+    
+    
+    func listenForBackgroundNotification() {
+        notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: OperationQueue.main) {
+            [weak self] _ in
+            
+            if let strongSelf = self {
+                if strongSelf.presentedViewController != nil {
+                    strongSelf.dismiss(animated: false, completion: nil)
+                }
+                strongSelf.shootingIntervalTextField.resignFirstResponder()
+                strongSelf.numberOfPhotosTextField.resignFirstResponder()
+            }
+        }
+    }
+
 }
 
 

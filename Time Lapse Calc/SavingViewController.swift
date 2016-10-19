@@ -10,12 +10,14 @@ import UIKit
 import CoreLocation
 import CoreData
 import Dispatch
+import MapKit
 
 
 private let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateStyle = .medium
     formatter.timeStyle = .short
+    
     return formatter
 }()
 
@@ -27,6 +29,12 @@ class SavingViewController: UIViewController {
     @IBOutlet weak var mapViewContainer: UIView!
     @IBOutlet weak var getLocationButton: UIButton!
     @IBOutlet var mainSubViews: [UIView]!
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var addPhotoImageView: UIImageView!
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    @IBOutlet weak var addPhotoButton: UIButton!
+   
+    
     
     // MARK: -  Info labels
     @IBOutlet weak var savingName: UITextField!
@@ -45,8 +53,11 @@ class SavingViewController: UIViewController {
     var lastLocationError : NSError?
     var timer : Timer?
     var date = Date()
+    var image : UIImage?
     var managedObjectContext : NSManagedObjectContext!
+    var notificationObserver: AnyObject!
     
+    // Used for saving new calculation
     var calc : TimeLapseCalc? {
         didSet {
             if let calculator = calc {
@@ -59,6 +70,8 @@ class SavingViewController: UIViewController {
             }
         }
     }
+    
+    // Used for edit saved calculation
     var calculationToEdit: Calculation? {
         didSet {
             if let calculation = calculationToEdit {
@@ -82,6 +95,7 @@ class SavingViewController: UIViewController {
         }
     }
     
+    // Used for showing info in labels
     var name = ""
     var numberOfPhotos = 0
     var clipLength = Time()
@@ -93,6 +107,9 @@ class SavingViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func cancel(_ sender: UIBarButtonItem) {
+        if updatingLocation {
+            stopLocationManager()
+        }
         dismiss(animated: true, completion: nil)
     }
     
@@ -126,11 +143,11 @@ class SavingViewController: UIViewController {
             fatalCoreDataError(error: error)
         }
         /*
-        afterDelay(0.6) { // realised in Functions.swift
+        afterDelay(0.6) { // Implemented in Functions.swift                     !!!! ERROR HERE TEST ON IPAD
             self.dismiss(animated: true, completion: nil)
         }
- */
-        
+         */
+        stopLocationManager()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -148,11 +165,19 @@ class SavingViewController: UIViewController {
             return
         }
         
+        let region = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 1000, 1000)
+        mapView.setRegion(mapView.regionThatFits(region), animated: true)
+        
         startLocationManager()
         updateMap()
         hideGetLocationButtonAndShowMap()
     }
     
+    
+    @IBAction func addPhoto(_ sender: AnyObject) {
+        print("add photo button touched")
+        pickPhoto()
+    }
     
     
     // MARK: - ViewController methods
@@ -184,10 +209,16 @@ class SavingViewController: UIViewController {
             mainSubView.layer.borderColor = UIColor.white.cgColor
         }
         
-        if let calculation = calculationToEdit {
+        if let _ = calculationToEdit {
             title = "Edit Calculation"
         }
         
+        if let _ = location {
+            hideGetLocationButtonAndShowMap()
+        }
+        
+        listenForBackgroundNotification()
+        updateMap()
         updateLabels()
         print(managedObjectContext)
     }
@@ -195,6 +226,12 @@ class SavingViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    deinit {
+        print("*** deinit \(self)")
+        NotificationCenter.default.removeObserver(notificationObserver)
     }
     
     // MARK: - Custom methods
@@ -229,9 +266,13 @@ class SavingViewController: UIViewController {
     }
     
     func updateMap() {
-        // TEMP DISPLAY
+
         if let location = location {
             print("Location is: \(location)")
+            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000, 1000)
+            mapView.setRegion(mapView.regionThatFits(region), animated: true)
+            let annotation = CustomAnnotation(whithLocation: location, andTittle: nil, andSubtitle: nil)
+            mapView.addAnnotation(annotation)
         } else {
             let statusMessage : String
             if let error = lastLocationError {
@@ -250,8 +291,7 @@ class SavingViewController: UIViewController {
                 statusMessage = "Tap 'Get Location' to Start"
             }
             
-            messageLabelOnMap.text = statusMessage
-            
+            //messageLabelOnMap.text = statusMessage
         }
     }
     
@@ -297,6 +337,20 @@ class SavingViewController: UIViewController {
         })
         
     }
+    
+    func listenForBackgroundNotification() {
+        notificationObserver = NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidEnterBackground, object: nil, queue: OperationQueue.main) {
+            [weak self] _ in
+            
+            if let strongSelf = self {
+                if strongSelf.presentedViewController != nil {
+                    strongSelf.dismiss(animated: false, completion: nil)
+                }
+                strongSelf.savingName.resignFirstResponder()
+            }
+        }
+    }
+    
     
 }
 
@@ -355,7 +409,75 @@ extension SavingViewController : UITextFieldDelegate {
     }
 }
 
+// MARK: - MKMapViewDelegate
 
+extension SavingViewController: MKMapViewDelegate { }
+
+
+// MARK: - UIImagePickerControllerDelegate
+
+extension SavingViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func pickPhoto() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            showPhotoMenu()
+        } else {
+            choosePhotoFromLibrary()
+        }
+    }
+    
+    func takePhotoWithCamera() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func choosePhotoFromLibrary() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        //present(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func showPhotoMenu() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let takePhotoAction = UIAlertAction(title: "Take Photo", style: .default, handler:  {
+            _ in
+            self.takePhotoWithCamera()
+        })
+        let choosePhotoAction = UIAlertAction(title: "Choose From Library", style: .default, handler: {
+            _ in
+            self.choosePhotoFromLibrary()
+        })
+        alertController.addAction(takePhotoAction)
+        alertController.addAction(choosePhotoAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func showImage(image: UIImage) {
+        addPhotoImageView.image = image
+        visualEffectView.isHidden = true
+        addPhotoButton.isHidden = true
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        if let image = image {
+            showImage(image: image)
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
 
 
 

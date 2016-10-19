@@ -12,7 +12,6 @@
 		272262931D9970290082E04B /* Calculation+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272262911D9970280082E04B /* Calculation+CoreDataClass.swift */; };
 		272262941D9970290082E04B /* Calculation+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */; };
 		274489E71D410B4B002106E3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274489E61D410B4B002106E3 /* AppDelegate.swift */; };
-		274489EC1D410B4B002106E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274489EA1D410B4B002106E3 /* Main.storyboard */; };
 		274489EE1D410B4B002106E3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 274489ED1D410B4B002106E3 /* Assets.xcassets */; };
 		274489F11D410B4B002106E3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 274489EF1D410B4B002106E3 /* LaunchScreen.storyboard */; };
 		274489F91D41265F002106E3 /* TimeLapseCalc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274489F81D41265F002106E3 /* TimeLapseCalc.swift */; };
@@ -21,7 +20,10 @@
 		279A74441D4A12FA00977326 /* timelapseEx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 279A74431D4A12FA00977326 /* timelapseEx.jpg */; };
 		27D334001D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D333FF1D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift */; };
 		27D334021D9AD50800FF0DC7 /* CalculationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D334011D9AD50800FF0DC7 /* CalculationCell.swift */; };
+		27D334081D9D672A00FF0DC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27D334071D9D672A00FF0DC7 /* Main.storyboard */; };
 		27E9FD6F1D63951300EF041A /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27E9FD6E1D63951300EF041A /* HudView.swift */; };
+		27FDE8831D9E59C5006F35FD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27FDE8821D9E59C5006F35FD /* MapKit.framework */; };
+		27FDE8851D9E76B5006F35FD /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FDE8841D9E76B5006F35FD /* CustomAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +33,6 @@
 		272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Calculation+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		274489E31D410B4B002106E3 /* Time Lapse Calc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Time Lapse Calc.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		274489E61D410B4B002106E3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		274489EB1D410B4B002106E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		274489ED1D410B4B002106E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		274489F01D410B4B002106E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		274489F21D410B4B002106E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,7 +42,10 @@
 		279A74431D4A12FA00977326 /* timelapseEx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = timelapseEx.jpg; sourceTree = "<group>"; };
 		27D333FF1D9ABA5700FF0DC7 /* SavedCalculationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedCalculationsTableViewController.swift; sourceTree = "<group>"; };
 		27D334011D9AD50800FF0DC7 /* CalculationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculationCell.swift; sourceTree = "<group>"; };
+		27D334071D9D672A00FF0DC7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		27E9FD6E1D63951300EF041A /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
+		27FDE8821D9E59C5006F35FD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		27FDE8841D9E76B5006F35FD /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27FDE8831D9E59C5006F35FD /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +75,7 @@
 			children = (
 				274489E51D410B4B002106E3 /* Time Lapse Calc */,
 				274489E41D410B4B002106E3 /* Products */,
+				27FDE8811D9E59C4006F35FD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -89,8 +95,8 @@
 				27FDC4271D9407B000104CFE /* Controller */,
 				27FDC4281D9407BF00104CFE /* View */,
 				272262951D9976680082E04B /* SupportingFiles */,
-				274489EA1D410B4B002106E3 /* Main.storyboard */,
 				274489EF1D410B4B002106E3 /* LaunchScreen.storyboard */,
+				27D334071D9D672A00FF0DC7 /* Main.storyboard */,
 				274489F21D410B4B002106E3 /* Info.plist */,
 				279A74431D4A12FA00977326 /* timelapseEx.jpg */,
 			);
@@ -101,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				272262911D9970280082E04B /* Calculation+CoreDataClass.swift */,
+				27FDE8841D9E76B5006F35FD /* CustomAnnotation.swift */,
 				272262921D9970280082E04B /* Calculation+CoreDataProperties.swift */,
 				274489F81D41265F002106E3 /* TimeLapseCalc.swift */,
 			);
@@ -124,6 +131,14 @@
 				27D334011D9AD50800FF0DC7 /* CalculationCell.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		27FDE8811D9E59C4006F35FD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				27FDE8821D9E59C5006F35FD /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,8 +203,8 @@
 			files = (
 				274489F11D410B4B002106E3 /* LaunchScreen.storyboard in Resources */,
 				274489EE1D410B4B002106E3 /* Assets.xcassets in Resources */,
-				274489EC1D410B4B002106E3 /* Main.storyboard in Resources */,
 				279A74441D4A12FA00977326 /* timelapseEx.jpg in Resources */,
+				27D334081D9D672A00FF0DC7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,20 +226,13 @@
 				27D334021D9AD50800FF0DC7 /* CalculationCell.swift in Sources */,
 				274489E71D410B4B002106E3 /* AppDelegate.swift in Sources */,
 				272262941D9970290082E04B /* Calculation+CoreDataProperties.swift in Sources */,
+				27FDE8851D9E76B5006F35FD /* CustomAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		274489EA1D410B4B002106E3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				274489EB1D410B4B002106E3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		274489EF1D410B4B002106E3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-
+import MapKit
 
 extension Calculation {
 
@@ -52,5 +52,5 @@ extension Calculation {
             self.shootingDurationSeconds = Int64(newValue.seconds)
         }        
     }
-
+    
 }
