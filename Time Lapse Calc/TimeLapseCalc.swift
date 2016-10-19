@@ -48,37 +48,28 @@ class TimeLapseCalc {
 
     
     
-    func calculateNumberOfPhotos() -> Int {
+    func calculateNumberOfPhotos() {
         numberOfPhotos = Int(Float(clipLength.totalTimeInSeconds) * framesPerSecond)
-        return numberOfPhotos
     }
     
-    func calculateClipLength() -> Int {
+    func calculateClipLength() {
         if framesPerSecond != 0 {
         clipLength.totalTimeInSeconds = Int(Float(numberOfPhotos) / framesPerSecond)
-        return clipLength.totalTimeInSeconds
-        } else {
-            return -1
         }
     }
     
-    func calculateShootingInterval() -> Float {
+    func calculateShootingInterval() {
         if numberOfPhotos != 0 {
         shootingInterval = Float(totalShootingDuration.totalTimeInSeconds) / Float(numberOfPhotos)
-        return shootingInterval
-        } else {
-            return -1
         }
     }
     
-    func calculateTotalMemoryUsage() -> Int {
+    func calculateTotalMemoryUsage() {
         totalMemoryUsage = imageSize * numberOfPhotos
-        return totalMemoryUsage
     }
     
-    func calculateTotalShootingDuration() -> Int {
+    func calculateTotalShootingDuration() {
         totalShootingDuration.totalTimeInSeconds = Int(Float(numberOfPhotos) * shootingInterval)
-        return totalShootingDuration.totalTimeInSeconds
     }
 }
 
