@@ -15,8 +15,8 @@ class TimeLapseCalc {
     var clipLength = Time()
     var shootingInterval : Float = 0
     var framesPerSecond : Float = 24
-    var imageSize : Int = 15
-    var totalMemoryUsage : Int = 0
+    var imageSize : Float = 15.0
+    var totalMemoryUsage : Float = 0
     var totalShootingDuration = Time()
     
     let fpsValues = [23.98, 24, 25, 30, 59.96, 60]
@@ -65,7 +65,11 @@ class TimeLapseCalc {
     }
     
     func calculateTotalMemoryUsage() {
-        totalMemoryUsage = imageSize * numberOfPhotos
+        totalMemoryUsage = imageSize * Float(numberOfPhotos)
+    }
+    
+    func calculateTotalMemoryUsageWith(_ singlePhotoSize: Float) {
+        totalMemoryUsage = singlePhotoSize * Float(numberOfPhotos)
     }
     
     func calculateTotalShootingDuration() {

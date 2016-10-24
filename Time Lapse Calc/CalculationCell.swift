@@ -43,9 +43,20 @@ class CalculationCell: UITableViewCell {
     func configure(forCalculation calculation: Calculation) {
         nameLabel.text = calculation.name
         numberOfPhotosLabel.text = String(calculation.numberOfPhotos)
-        clipLengthLabel.text = String(calculation.clipLength.totalTimeInSeconds)
-        intervalLabel.text = String(format: "%.2f", calculation.shootingInterval)
-        memoryUsageLabel.text = String(calculation.memoryUsage)
+        
+        clipLengthLabel.text = String(format: "%02d", calculation.clipLength.hours) + ":" + String(format: "%02d", calculation.clipLength.minutes) + ":" + String(format: "%02d", calculation.clipLength.seconds)
+        intervalLabel.text = String(format: "%.2f", calculation.shootingInterval) + " sec."
+        
+        if calculation.memoryUsage < 1000 {
+            memoryUsageLabel.text = String(calculation.memoryUsage) + " Mb"
+        } else {
+            memoryUsageLabel.text = String(Double(calculation.memoryUsage) / 1000) + " Gb"
+        }
+        
+        
+        
+        
+        
         calculationImageView.image = image(forCalculation: calculation)
     }
     

@@ -12,7 +12,7 @@ import CoreData
 import Dispatch
 import MapKit
 
-class SavingViewController: UIViewController {
+class SavingViewController: UIViewController, LargerPhotoViewControllerDelegate {
     
     // MARK: - Main views
     @IBOutlet weak var mainInfoView: UIView!
@@ -24,6 +24,7 @@ class SavingViewController: UIViewController {
     @IBOutlet weak var addPhotoImageView: UIImageView!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var addPhotoButton: UIButton!
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
     
     
     
@@ -57,7 +58,7 @@ class SavingViewController: UIViewController {
                 fps = Double(calculator.framesPerSecond)
                 shootingInterval = Double(calculator.shootingInterval)
                 shootingDuration = calculator.totalShootingDuration
-                memoryUsage = calculator.totalMemoryUsage
+                memoryUsage = Int(calculator.totalMemoryUsage)
             }
         }
     }
@@ -185,6 +186,12 @@ class SavingViewController: UIViewController {
         pickPhoto()
     }
     
+    @IBAction func showBiggerPhoto(_ sender: AnyObject) {
+        print("showBiggerPhoto")
+        performSegue(withIdentifier: "showImage", sender: nil)
+    }
+    
+    
     
     // MARK: - ViewController methods
     override func viewDidLoad() {
@@ -219,7 +226,8 @@ class SavingViewController: UIViewController {
             title = "Edit Calculation"
             if calculation.hasPhoto {
                 if let image = calculation.photoImage {
-                    showImage(image: image)
+                    //showImage(image: image)
+                    self.image = image
                 }
             }
         }
@@ -231,7 +239,7 @@ class SavingViewController: UIViewController {
         listenForBackgroundNotification()
         updateMap()
         updateLabels()
-        print(managedObjectContext)
+        addPhotoView.addGestureRecognizer(tapGesture)
     }
     
     override func didReceiveMemoryWarning() {
@@ -241,8 +249,22 @@ class SavingViewController: UIViewController {
     
     
     deinit {
+        
+        print("SavingViewController DEINIT")
         NotificationCenter.default.removeObserver(notificationObserver)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        print("Image = \(image)")
+        if let image = image {
+            showImage(image: image)
+        }
+        
+        
+    }
+    
+   
     
     // MARK: - Custom methods
     func showLocationServicesDeniedAllert() {
@@ -265,8 +287,8 @@ class SavingViewController: UIViewController {
         savingName.text = name
         numberOfPhotosLabel.text = String(numberOfPhotos)
         clipLengthLabel.text = String(format: "%02d", clipLength.hours) + ":" + String(format: "%02d", clipLength.minutes) + ":" + String(format: "%02d", clipLength.seconds)
-        fpsLabel.text = "\(fps)"
-        shootingIntervalLabel.text = String(format: "%.2f", shootingInterval)
+        fpsLabel.text = String(format: "%.2f", fps)
+        shootingIntervalLabel.text = String(format: "%.2f", shootingInterval) + " sec."
         shootingDurationLabel.text = String(format: "%02d", shootingDuration.hours) + ":" + String(format: "%02d", shootingDuration.minutes) + ":" + String(format: "%02d", shootingDuration.seconds)
         if memoryUsage < 1000 {
             memoryUsageLabel.text = String(memoryUsage) + " Mb"
@@ -301,7 +323,6 @@ class SavingViewController: UIViewController {
                 statusMessage = "Tap 'Get Location' to Start"
             }
             
-            //messageLabelOnMap.text = statusMessage
         }
     }
     
@@ -358,6 +379,18 @@ class SavingViewController: UIViewController {
                 }
                 strongSelf.savingName.resignFirstResponder()
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showImage" {
+            print("prepere for  segue")
+            let navController = segue.destination as! UINavigationController
+            let largePhotoController = navController.topViewController as! LargerPhotoViewController
+            if let imageToSend = image {
+                largePhotoController.image = imageToSend
+                largePhotoController.delegate = self
+            }            
         }
     }
     

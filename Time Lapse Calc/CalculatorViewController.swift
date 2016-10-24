@@ -16,6 +16,11 @@ class CalculatorViewController: UIViewController {
     let numberToolbar: UIToolbar = UIToolbar()
     var managedObjectContext: NSManagedObjectContext!
     var notificationObserver: AnyObject!
+    let userDefaults = UserDefaults.standard
+    var clipLenghtPriority: Bool?
+    var shootingDurationPriority: Bool?
+    var singlePhotoSize: Float?
+    var defaultFpsIndex: Int?
     
     @IBOutlet weak var mainCalcView: UIView!
     @IBOutlet weak var numberOfPhotosTextField: UITextField!
@@ -35,8 +40,7 @@ class CalculatorViewController: UIViewController {
         let numberOfPhotos = String(calculator.numberOfPhotos)
         let clipLength = String(format: "%02d", calculator.clipLength.hours) + ":" + String(format: "%02d", calculator.clipLength.minutes) + ":" + String(format: "%02d", calculator.clipLength.seconds)
         let fps = String(calculator.framesPerSecond) + " fps"
-        let shootingInterval = String(format: "%.02f", calculator.shootingInterval)
- + " sec."
+        let shootingInterval = String(format: "%.02f", calculator.shootingInterval) + " sec."
         
         let shootingDuration = String(format: "%02d", calculator.totalShootingDuration.hours) + ":" + String(format: "%02d", calculator.totalShootingDuration.minutes) + ":" + String(format: "%02d", calculator.totalShootingDuration.seconds)
         
@@ -75,7 +79,13 @@ class CalculatorViewController: UIViewController {
         
         
         
-        fpsPicker.selectRow(1, inComponent: 0, animated: true)
+        defaultFpsIndex = userDefaults.value(forKey: "defaultFpsIndex") as! Int?
+        if defaultFpsIndex == nil {
+            userDefaults.set(0, forKey: "defaultFpsIndex")
+            defaultFpsIndex = 0
+            
+        }
+        fpsPicker.selectRow(defaultFpsIndex!, inComponent: 0, animated: false)
         clipLenghtPicker.selectRow(480, inComponent: 0, animated: false)
         clipLenghtPicker.selectRow(480, inComponent: 1, animated: false)
         
@@ -108,6 +118,27 @@ class CalculatorViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        clipLenghtPriority = userDefaults.value(forKey: "clipLenghtPriority") as! Bool?
+        if clipLenghtPriority == nil {
+            userDefaults.set(true, forKey: "clipLenghtPriority")
+            clipLenghtPriority = true
+        }
+        
+        shootingDurationPriority = userDefaults.value(forKey: "shootingDurationPriority") as! Bool?
+        if shootingDurationPriority == nil {
+            userDefaults.set(true, forKey: "shootingDurationPriority")
+            shootingDurationPriority = true
+        }
+        
+        singlePhotoSize = userDefaults.value(forKey: "singlePhotoMemoryUsage") as! Float?
+        if singlePhotoSize == nil {
+            userDefaults.set(15.0, forKey: "singlePhotoMemoryUsage")
+            singlePhotoSize = 15.0
+        }
+        
     }
     
     // MARK: CUSTOM functions
@@ -254,16 +285,29 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
                 calculator.clipLength.seconds = calculator.secondsArray[row % calculator.secondsArray.count]
             }
             calculator.calculateNumberOfPhotos()        // number
-            calculator.calculateShootingInterval()      // interval
-            calculator.calculateTotalMemoryUsage()      // memory
+            if shootingDurationPriority! {
+                calculator.calculateShootingInterval()      // interval
+            } else {
+                calculator.calculateTotalShootingDuration()
+            }
+            calculator.calculateTotalMemoryUsageWith(singlePhotoSize!)      // memory
         }
         // FPS picker
         if pickerView.tag == 2 {
             if component == 0 {
                 calculator.framesPerSecond = Float(calculator.fpsValues[row])
-                calculator.calculateNumberOfPhotos()        // number
-                calculator.calculateShootingInterval()      // interval
-                calculator.calculateTotalMemoryUsage()      // memory
+                if clipLenghtPriority! {
+                    calculator.calculateNumberOfPhotos()        // number
+                } else {
+                    calculator.calculateClipLength()
+                }
+                if shootingDurationPriority! {
+                    calculator.calculateShootingInterval()      // interval
+                } else {
+                    calculator.calculateTotalShootingDuration()
+                }
+                
+                calculator.calculateTotalMemoryUsageWith(singlePhotoSize!)       // memory
             }
         }
         // Shooting duration picker
@@ -303,8 +347,12 @@ extension CalculatorViewController: UIPickerViewDataSource, UIPickerViewDelegate
             if let numberOfPhotos = Int(str!){
                 calculator.numberOfPhotos = numberOfPhotos
                 calculator.calculateClipLength()            // length
-                calculator.calculateShootingInterval()      // interval
-                calculator.calculateTotalMemoryUsage()      // memory
+                if shootingDurationPriority! {
+                    calculator.calculateShootingInterval()      // interval
+                } else {
+                    calculator.calculateTotalShootingDuration()
+                }
+                calculator.calculateTotalMemoryUsageWith(singlePhotoSize!)       // memory
             }
         }
         // Shooting interval textField

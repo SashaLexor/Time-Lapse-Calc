@@ -11,8 +11,8 @@
         "cap-insets" : {
           "bottom" : 20,
           "top" : 19,
-          "right" : 5,
-          "left" : 5
+          "right" : 165,
+          "left" : 165
         }
       },
       "idiom" : "universal",
@@ -20,11 +20,41 @@
       "scale" : "1x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 40,
+          "top" : 39,
+          "right" : 331,
+          "left" : 330
+        }
+      },
       "idiom" : "universal",
+      "filename" : "Button Orange@2x.png",
       "scale" : "2x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "bottom" : 60,
+          "top" : 59,
+          "right" : 496,
+          "left" : 496
+        }
+      },
       "idiom" : "universal",
+      "filename" : "Button Orange@3x.png",
       "scale" : "3x"
     }
   ],

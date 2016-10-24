@@ -10,13 +10,15 @@ import UIKit
 import CoreData
 import CoreLocation
 
+
+
 class SavedCalculationsTableViewController: UITableViewController {
     
     var managedObjectContext: NSManagedObjectContext!
     var calculations = [Calculation]()
     
     
-    var fetchedResultsController: NSFetchedResultsController<Calculation>! // --------------- MAGIC?????
+    var fetchedResultsController: NSFetchedResultsController<Calculation>!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +37,7 @@ class SavedCalculationsTableViewController: UITableViewController {
             fetchRequest: fetchRequest,
             managedObjectContext: self.managedObjectContext,
             sectionNameKeyPath: nil,     // fetched results controller will group the search results based on the value of the category attribute
-            cacheName: "Locations")
+            cacheName: nil)
         fetchedResultsController.delegate = self
         
         self.fetchedResultsController = fetchedResultsController
@@ -46,6 +48,10 @@ class SavedCalculationsTableViewController: UITableViewController {
     func perfomFetch() {
         do {
             try fetchedResultsController.performFetch()
+
+            let sectionInfo = fetchedResultsController.sections![0]
+            let count = sectionInfo.numberOfObjects
+            print("Objects count = \(count)")
         } catch {
             fatalCoreDataError(error: error)
         }
@@ -60,6 +66,7 @@ class SavedCalculationsTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     // MARK: - Table view data source
 
